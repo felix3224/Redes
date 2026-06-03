@@ -1,0 +1,46 @@
+pq as redes locais no roteis não podem ser as mesmas? 
+exemplo: r1 g0/0 172.16.1.1 e r2 g0/0 172.16.1.1? se fosse iguais mudaria alguma coisa? ou é só por capricho?
+
+quando você escolhe para os router conversarem entre si 10.0.0.1 e 10.0.0.2 pq não continuar com 10.0.0.3 e 10.0.0.4? você pulou para 10.0.0.5 e 10.0.0.6 isso muda alguma coisa ou foi só por capricho?
+
+r1:
+enable 
+configure terminal
+interface gig0/1 
+ip address 10.0.0.2 255.255.255.252
+no shutdown 
+exit
+
+interface gig0/0
+ip address 172.16.1.1 255.255.255.0
+no shutdown 
+end 
+write
+
+r2 
+enable 
+configure terminal
+interface gig0/0 
+ip address 10.0.0.1 255.255.255.252
+no shutdown 
+exit
+interface gig0/1
+ip address 10.0.0.5 255.255.255.252
+no shutdown
+end 
+write
+
+r3
+enable
+configure terminal 
+interface gig0/1
+ip address 10.0.0.6 255.255.255.252
+no shutdown 
+exit
+interface gig0/0 
+ip address 172.16.2.1 255.255.255.0
+no shutdown 
+end 
+write
+
+
